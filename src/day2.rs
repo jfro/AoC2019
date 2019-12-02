@@ -31,6 +31,12 @@ impl IntcodeState {
     fn run_until_halt(&mut self) {
         while self.execute_cycle() {}
     }
+    fn run_with_inputs(&mut self, arg1: u32, arg2: u32) -> u32 {
+        self.memory[1] = arg1;
+        self.memory[2] = arg2;
+        self.run_until_halt();
+        self.memory[0]
+    }
 }
 #[aoc_generator(day2)]
 fn gen_part1(input: &str) -> Vec<u32> {
@@ -44,6 +50,23 @@ fn solve_part1(input: &[u32]) -> u32 {
     state.memory[2] = 2;
     state.run_until_halt();
     state.memory[0]
+}
+
+#[aoc(day2, part2)]
+fn solve_part2(input: &[u32]) -> u32 {
+    let goal = 19690720;
+    let input1_range = 0..=99;
+    for noun in input1_range {
+        let input2_range = 0..=99;
+        for verb in input2_range {
+            let mut state = IntcodeState::new(input);
+            let answer = state.run_with_inputs(noun, verb);
+            if answer == goal {
+                return 100 * noun + verb;
+            }
+        }
+    }
+    0
 }
 
 #[cfg(test)]
