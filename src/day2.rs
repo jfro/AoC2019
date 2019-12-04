@@ -69,7 +69,7 @@ fn solve_part2(input: &[u32]) -> u32 {
     0
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-}
+//#[cfg(test)]
+//mod tests {
+//    use super::*;
+//}
